@@ -5,7 +5,7 @@ class LinearRegression_1D:
         self.theta0 = np.random.rand()
         self.theta1 = np.random.rand()
     
-    def fit(self, x, y, eta = 1e-3, diff_obj = 1e-2, verbose = False):
+    def fit(self, x, y, normalize=True, eta = 1e-3, diff_obj = 1e-2, verbose = False):
         '''
         Fit linear model
 
@@ -29,7 +29,8 @@ class LinearRegression_1D:
         Does not return anything but the fitted instance.
         '''
         diff = 1
-        x = self._preprocess(x)
+        if normalize == True:
+            x = self._preprocess(x)
         error = self._obj_function(x, y)
         
         count = 0
@@ -67,5 +68,5 @@ if __name__ == '__main__':
     y = np.array([1,2,2])
     
     lm_1d = LinearRegression_1D()
-    lm_1d.fit(X,y, diff_obj=1e-10)
+    lm_1d.fit(X,y, normalize=False, diff_obj=1e-10)
     print('y = {} + {} * x'.format(lm_1d.theta0, lm_1d.theta1))
